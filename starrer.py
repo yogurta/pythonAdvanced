@@ -53,10 +53,4 @@ def show(directories):
             click.echo('* ' + '{}'.format(directory))
         else:
             click.echo('{}'.format(directory))
-
-
-#if __name__ == '__main__': ### Tady musím měnit, aby to fungovalo (odkomentovat radky)
-    #add()
-    #remove('pyvec/naucse.python.cz') # FUNGUJEEEEE!!!!!
-    #show('pyvec/naucse.python.cz')
 main()
