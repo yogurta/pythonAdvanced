@@ -26,20 +26,20 @@ def main():
     return
 
 @main.command() # funkce s dekorátorem je příkaz, click zpracuje argumenty př. řádky a zavolá původní funkci s příslušnými pythoními hodnotami
-@click.argument('directory') # type=click.Path(exists=True)
-def add(directory):
+@click.argument('directories',nargs=-1) # type=click.Path(exists=True)
+def add(directories):
     """add star to current address"""
-    #for pathname in directory:
-    session.put('https://api.github.com/user/starred/pyvec/naucse.python.cz', auth = (username,password))
-    click.echo('Adding star to {}'.format(directory))
+    for directory in directories:
+        session.put('https://api.github.com/user/starred/' + directory, auth = (username,password))
+        click.echo('Adding star to {}'.format(directory))
 
 @main.command()
-@click.argument('directory')
-def remove(directory):
+@click.argument('directories',nargs=-1)
+def remove(directories):
     """removes star from current address"""
-    #for pathname in directory:
-    session.delete('https://api.github.com/user/starred/pyvec/naucse.python.cz', auth = (username,password))
-    click.echo('Removing star from {}'.format(directory))
+    for directory in directories:
+        session.delete('https://api.github.com/user/starred/' + directory, auth = (username,password))
+        click.echo('Removing star from {}'.format(directory))
 
 @main.command()
 @click.argument('directories',nargs=-1)  #nargs = -1, znamená nekonečně argumentů
@@ -47,7 +47,7 @@ def show(directories):
     """Shows repository name with or without star"""
     #r = session.get('https://api.github.com/user/starred/pyvec/naucse.python.cz', auth = (username,password))
     for directory in directories:
-        r = session.get('https://api.github.com/user/starred/pyvec/naucse.python.cz', auth = (username,password))# + input() funguje, ale musim to tam pak napsat
+        r = session.get('https://api.github.com/user/starred/'+ directory, auth = (username,password))# + input() funguje, ale musim to tam pak napsat
         print(r.status_code)
         if r.status_code == 204:
             click.echo('* ' + '{}'.format(directory))
