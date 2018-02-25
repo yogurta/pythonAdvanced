@@ -10,8 +10,8 @@ with open('auth.cfg') as f:
 token = config['github']['token']
 
 username = 'yogurta' # username
-password = getpass.getpass() # ask for password
-
+#password = getpass.getpass() # ask for password
+password = token
 #r = requests.get('https://api.github.com/users', auth = (username,password))
 
 session = requests.Session()
@@ -22,6 +22,7 @@ session.headers = {'Authorization':'token '+ token, 'User-Agent':'Python'}
 
 import click
 @click.group()
+#@click.option('-c',type = str, default = './auth.cfg',help = 'Select path to config file')
 def main():
     return
 
